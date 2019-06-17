@@ -1,0 +1,103 @@
+name: banda
+version: 0.1
+description: A player driven protection plugin
+load: STARTUP
+author: psygate
+main: com.psygate.minecraft.spigot.sovereignty.banda.Banda
+database: false
+depends: [nucleus]
+
+commands:
+  playerinfo:
+    description: Shows basic information about a player.
+    default: op
+    usage: /playerinfo <playername>
+    permission: banda.info.player
+
+  banuuid:
+    description: Bans a player by uuid.
+    default: op
+    permission: banda.ban.uuid
+    usage: /banuuid <UUID|playername> <Reason>
+    aliases: [banplayer, ban]
+
+  unbanuuid:
+    description: Unbans a UUID/playername.
+    default: op
+    permission: banda.unban.uuid
+    usage: /unbanuuid <UUID|playername>
+    aliases: [unbanplayer, unban]
+
+  banip:
+    description: Bans an ip.
+    default: op
+    usage: /banuuid <ip> <Reason>
+    permission: banda.ban.ip
+
+  baniprange:
+    description: Bans an ip range.
+    default: op
+    usage: /banuuid <iprange> <Reason>
+    permission: banda.ban.iprange
+
+  bandalog:
+    description: Lists the log.
+    default: op
+    permission: banda.info.log
+
+  protect:
+    description: Protects a player against specific bans.
+    permission: banda.protect.protect
+    usage: protect <playername|uuid> (iprange=(true|false)) (ip=(true|false)) (multiaccount=(true|false))
+    default: op
+
+  baninfo:
+    description: Shows all bans affecting a player.
+    default: op
+    permission: banda.info.info
+
+permissions:
+  banda:
+    default: op
+    description: Gives access to all banda commands.
+    children:
+      banda.info: true
+      banda.ban: true
+      banda.protect: true
+
+  banda.info:
+    default: op
+    description: Gives access to the info commands of banda.
+    children:
+      banda.info.log: true
+      banda.info.info: true
+
+    banda.ban:
+      default: op
+      description: Gives access to the ban and protect commands.
+      children:
+        banda.ban.uuid: true
+        banda.ban.iprange: true
+        banda.ban.ip: true
+        banda.protect.protect: true
+
+  banda.ban.uuid:
+    default: op
+
+  banda.unban.uuid:
+    default: op
+
+  banda.ban.iprange:
+    default: op
+
+  banda.ban.ip:
+    default: op
+
+  banda.info.log:
+    default: op
+
+  banda.info.info:
+    default: op
+
+  banda.protect.protect:
+    default: op
